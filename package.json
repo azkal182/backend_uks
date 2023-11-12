@@ -4,8 +4,9 @@
   "main": "node dist/main.js",
   "license": "MIT",
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "npx nodemon",
-    "buil":"npx tsc",
+    "buil": "npx tsc",
     "start": "node dist/main.js"
   },
   "dependencies": {
