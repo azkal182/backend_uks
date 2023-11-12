@@ -9,7 +9,12 @@ import { prismaClient } from "../application/database";
 import { ResponseError } from "../error/response-error";
 import bcrypt from "bcrypt";
 import { v4 as uuid } from "uuid";
-import { generateAccessToken } from "../utils/jwt";
+// import { generateAccessToken } from "../utils/jwt";
+import jwt from "jsonwebtoken";
+
+function generateAccessToken(data:any) {
+    return jwt.sign(data, process.env.TOKEN_SECRET||"secret", { expiresIn: '1800s' });
+  }
 
 const register = async (request: any) => {
     const user = validate(registerUserValidation, request);
