@@ -18,6 +18,7 @@ const database_1 = require("../application/database");
 const response_error_1 = require("../error/response-error");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const uuid_1 = require("uuid");
+const jwt_1 = require("../utils/jwt");
 const register = (request) => __awaiter(void 0, void 0, void 0, function* () {
     const user = (0, validation_1.validate)(user_validation_1.registerUserValidation, request);
     const countUser = yield database_1.prismaClient.user.count({
@@ -45,6 +46,7 @@ const login = (request) => __awaiter(void 0, void 0, void 0, function* () {
         },
         select: {
             username: true,
+            name: true,
             password: true
         }
     });
@@ -55,8 +57,9 @@ const login = (request) => __awaiter(void 0, void 0, void 0, function* () {
     if (!isPasswordValid) {
         throw new response_error_1.ResponseError(401, "Username or password wrong");
     }
+    const jwtToken = (0, jwt_1.generateAccessToken)({ username: user.username, name: user.name });
     const token = (0, uuid_1.v4)().toString();
-    return database_1.prismaClient.user.update({
+    yield database_1.prismaClient.user.update({
         data: {
             token: token
         },
@@ -67,6 +70,10 @@ const login = (request) => __awaiter(void 0, void 0, void 0, function* () {
             token: true
         }
     });
+    return {
+        jwtToken: jwtToken,
+        token: token
+    };
 });
 const get = (username) => __awaiter(void 0, void 0, void 0, function* () {
     username = (0, validation_1.validate)(user_validation_1.getUserValidation, username);

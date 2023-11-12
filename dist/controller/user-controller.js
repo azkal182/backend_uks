@@ -38,6 +38,7 @@ const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
 const get = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
+        // @ts-ignore;
         const username = (_a = req.user) === null || _a === void 0 ? void 0 : _a.username;
         const result = yield user_service_1.default.get(username);
         res.status(200).json({

@@ -14,3 +14,4 @@ web_1.web.get('/', (req, res) => {
 web_1.web.listen(PORT, () => {
     logging_1.logger.info("App start in http://localhost:" + PORT);
 });
+// web.listen(PORT, '0.0.0.0');
