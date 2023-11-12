@@ -9,7 +9,6 @@ import { prismaClient } from "../application/database";
 import { ResponseError } from "../error/response-error";
 import bcrypt from "bcrypt";
 import { v4 as uuid } from "uuid";
-// import { generateAccessToken } from "../utils/jwt";
 import jwt from "jsonwebtoken";
 
 function generateAccessToken(data:any) {
