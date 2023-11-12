@@ -6,15 +6,15 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
+    provider = "cockroachdb"
     url      = env("DATABASE_URL")
 }
 
 model User {
-    username String  @id @db.VarChar(100)
-    password String  @db.VarChar(100)
-    name     String  @db.VarChar(100)
-    token    String? @db.VarChar(100)
+    username String  @id
+    password String
+    name     String
+    token    String?
 
     @@map("users")
 }
@@ -27,9 +27,9 @@ enum StatusCheckin {
 }
 
 model checkIn {
-    id         Int           @id @default(autoincrement())
-    name       String        @db.VarChar(25)
-    address    String        @db.VarChar(100)
+    id         Int           @id @default(sequence())
+    name       String
+    address    String
     grade      String?
     complaint  String
     room       String
