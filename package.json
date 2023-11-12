@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "prisma generate",
     "dev": "npx nodemon",
-    "buil": "npx tsc",
+    "build": "npx tsc",
     "start": "node dist/main.js"
   },
   "dependencies": {
